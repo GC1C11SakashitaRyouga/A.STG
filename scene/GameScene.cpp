@@ -6,10 +6,11 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
+	delete spriteBG_;//BG
 }
 
-void GameScene::Initialize() {
-	
+void GameScene::Initialize() { textureHandleBG_ = TextureManager::Load("bg.jpg");
+	spriteBG_ = Sprite::Create(textureHandleBG_, {0.0});
 }
 
 void GameScene::Update() { 
