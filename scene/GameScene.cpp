@@ -6,43 +6,14 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
-	delete sprite_;
-	delete model_; 
 }
 
 void GameScene::Initialize() {
-	dxCommon_ = DirectXCommon::GetInstance();
-	input_ = Input::GetInstance();
-	audio_ = Audio::GetInstance();
-	//サウンドデータの読み込み
-	soundDataHandle_ = audio_->LoadWave("fanfare.wav");
-	textureHandle_ = TextureManager::Load("sample.png");
-	//音声再生
-	audio_->PlayWave(soundDataHandle_);
-	//音声再生
-	voiceHandle_ = audio_->PlayWave(soundDataHandle_,true);
-	sprite_ = Sprite::Create(textureHandle_, {100,50});
-	model_ = Model::Create();
-	worldTransform_.Initialize();
-	viewProjection_.Initialize();
+	
 }
 
 void GameScene::Update() { 
-	//スプライトの今の座標を取得
-	Vector2 position = sprite_->GetPosition();
-	//座標を{2,1}移動
-	position.x += 2.0f;
-	position.y += 1.0f;
-	//スペースキーを押した瞬間
-	if (input_->TriggerKey(DIK_SPACE)) {
 	
-	//音声停止
-		audio_->StopWave(voiceHandle_);
-	}
-	//デバッグテキスト
-	ImGui::Text("kamata Tarou %d.%d.%d", 2050, 12, 31);
-	//移動した座標をスプライトに反映
-	sprite_->SetPosition(position);
 }
 
 void GameScene::Draw() {

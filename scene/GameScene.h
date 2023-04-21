@@ -51,14 +51,5 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	//音声再生ハンドル
-	uint32_t voiceHandle_ = 0;
-	uint32_t textureHandle_ = 0;
-	//サウンドデータハンドル
-	uint32_t soundDataHandle_ = 0;
-	Sprite* sprite_ = nullptr;
-	//３Dモデル
-	Model* model_ = nullptr;
-	WorldTransform worldTransform_;
-	ViewProjection viewProjection_;
+	
 };
