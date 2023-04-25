@@ -41,6 +41,13 @@ void GameScene::Update() {
 	}
 	//デバッグテキスト
 	ImGui::Text("kamata Tarou %d.%d.%d", 2050, 12, 31);
+	ImGui::Begin("Debug1");
+	//float３入力ボックス
+	ImGui::InputFloat3("InputFloat3", inputFloat3);
+	//float３スライダー
+	ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
+	ImGui::Text("Kamata Tarou %d,%d,%d", 2050, 12, 31);
+	ImGui::End();
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
 }
