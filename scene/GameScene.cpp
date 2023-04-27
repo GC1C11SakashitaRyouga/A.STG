@@ -8,9 +8,13 @@ GameScene::GameScene() {}
 GameScene::~GameScene() { 
 	delete spriteBG_;//BG
 }
-
+//背景
 void GameScene::Initialize() { textureHandleBG_ = TextureManager::Load("bg.jpg");
 	spriteBG_ = Sprite::Create(textureHandleBG_, {0.0});
+	//ステージ
+
+	//自機
+	//行列変換
 }
 
 void GameScene::Update() { 
@@ -28,6 +32,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
+	spriteBG_->Draw();
 	/// </summary>
 	
 	// スプライト描画後処理
