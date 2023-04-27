@@ -7,11 +7,24 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
 	delete spriteBG_;//BG
+	delete modelStage_;//ステージ
+
 }
 //初期化
 void GameScene::Initialize() { 
+
+	dxCommon_ = DirectXCommon::GetInstance();
+	input_ = Input::GetInstance();
+	audio_ = Audio::GetInstance();
 	textureHandleBG_ = TextureManager::Load("bg.jpg");
 	spriteBG_ = Sprite::Create(textureHandleBG_, {0.0});
+
+	textureHandleBG_ = TextureManager::Load("stage.jpg");
+	modelStage_ = Model::Create();
+	worldTransformStage_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+	//ステージ
 }
 
 void GameScene::Update() { 
@@ -44,6 +57,8 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
+	//ステージ
+	modelStage_->Draw(worldTransformStage_,viewProjection_,textureHandleStage_);
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
