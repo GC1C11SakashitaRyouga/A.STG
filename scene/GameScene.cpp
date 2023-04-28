@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include <cassert>
 #include"ImGuiManager.h"
+#include"MathUtilityForText.h"
 
 GameScene::GameScene() {}
 
@@ -23,8 +24,19 @@ void GameScene::Initialize() {
 	modelStage_ = Model::Create();
 	worldTransformStage_.Initialize();
 	// ビュープロジェクションの初期化
+	viewProjection_.translation_.y = 1;
+	viewProjection_.translation_.z = -6;
 	viewProjection_.Initialize();
-	//ステージ
+	//ステージの位置を変更
+	worldTransformStage_.translation_ = {0, -1.5f, 0};
+	worldTransformStage_.scale_ = {4.5f, 1, 40};
+	//変更行列を更新
+	worldTransformStage_.matWorld_ = MakeAffineMatrix(
+	    worldTransformStage_.scale_, worldTransformStage_.rotation_,
+	    worldTransformStage_.translation_);
+	//変換行列を定数バッファに転送
+	worldTransformStage_.TransferMatrix();
+	
 }
 
 void GameScene::Update() { 
