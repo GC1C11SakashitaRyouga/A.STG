@@ -47,6 +47,7 @@ void GameScene::Update() {
 	//float３スライダー
 	ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
 	ImGui::Text("Kamata Tarou %d,%d,%d", 2050, 12, 31);
+	ImGui::showDemoWindow();
 	ImGui::End();
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
