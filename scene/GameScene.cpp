@@ -9,6 +9,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() { 
 	delete spriteBG_;//BG
 	delete modelStage_;//ステージ
+	delete modelPlayer_;
 
 }
 //初期化
@@ -20,7 +21,6 @@ void GameScene::Initialize() {
 	textureHandleBG_ = TextureManager::Load("bg.jpg");
 	spriteBG_ = Sprite::Create(textureHandleBG_, {0.0});
 
-
 	// ビュープロジェクションの初期化
 	viewProjection_.translation_.y = 1;
 	viewProjection_.translation_.z = -6;
@@ -31,6 +31,11 @@ void GameScene::Initialize() {
 	worldTransformStage_.Initialize();
 	
 	//ステージの位置を変更
+	//プレイヤー
+	textureHandlePlayer_ = TextureManager::Load("player.png");
+	modelPlayer_ = Model::Create();
+	worldTransformPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTransformPlayer_.Initialize();
 	
 	
 	worldTransformStage_.translation_ = {0, -1.5f, 0};
@@ -78,7 +83,7 @@ void GameScene::Draw() {
 	// ステージ
 	/// </summary>
 	modelStage_->Draw(worldTransformStage_, viewProjection_, textureHandleStage_);
-	
+	modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
