@@ -4,7 +4,7 @@
 #include"ImGuiManager.h"
 #include"MathUtilityForText.h"
 
-GameScene::GameScene() {}
+GameScene::GameScene() {};
 
 GameScene::~GameScene() { 
 	delete spriteBG_;//BG
@@ -40,6 +40,7 @@ void GameScene::Initialize() {
 	
 	worldTransformStage_.translation_ = {0, -1.5f, 0};
 	worldTransformStage_.scale_ = {4.5f, 1, 40};
+	
 	//変更行列を更新
 	worldTransformStage_.matWorld_ = MakeAffineMatrix(
 	 worldTransformStage_.scale_, 
@@ -51,7 +52,23 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
-	
+	PlayerUpdate();
+}
+
+void GameScene::PlayerUpdate() {
+	if (input_->PushKey(DIK_RIGHT)) {
+		worldTransformPlayer_.translation_.x += 0.1f;
+	}
+	if (input_->PushKey(DIK_LEFT)) {
+		worldTransformPlayer_.translation_.x -= 0.1f;
+	}
+	// 変換行列を更新
+	worldTransformPlayer_.matWorld_ = MakeAffineMatrix(
+	    worldTransformPlayer_.scale_, worldTransformPlayer_.rotation_,
+	    worldTransformPlayer_.translation_);
+
+	// 変換行列を定数バッファに転送
+	worldTransformPlayer_.TransferMatrix();
 }
 
 void GameScene::Draw() {

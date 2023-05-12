@@ -21,7 +21,7 @@ public: // メンバ関数
 	
 	GameScene();
 	// 音声
-	
+	void PlayerUpdate();
 	
 	/// <summary>
 	/// デストラクタ
