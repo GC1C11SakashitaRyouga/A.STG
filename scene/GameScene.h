@@ -37,8 +37,15 @@ public: // メンバ関数
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
+
 	void BeamUpdate();
+	//ビームの移動
 	void BeamMove();
+	//ビーム発生
+	void BeamBorn();
+
+	
+
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -70,5 +77,5 @@ private: // メンバ変数
 	uint32_t textureHandleBeam_ = 0;
 	Model* modelBeam_ = nullptr;
 	WorldTransform worldTransformBeam_;
-	bool isBeamFlag=true;
+	bool BeamFlag=true;
 };

@@ -62,19 +62,12 @@ void GameScene::Initialize() {
 void GameScene::Update() { 
 	PlayerUpdate();
 	BeamUpdate();
-	
-
+	BeamMove();
+	BeamBorn();
 }
 
 void GameScene::BeamUpdate() {
-	BeamMove();
-	if (input_->TriggerKey(DIK_SPACE)) {
-		worldTransformBeam_.translation_.z = worldTransformPlayer_.translation_.z;
-		worldTransformBeam_.translation_.x = worldTransformPlayer_.translation_.x;
-		isBeamFlag = false;
-		
-	}
-
+	
 	    worldTransformBeam_.matWorld_ = MakeAffineMatrix(
 	    worldTransformBeam_.scale_, 
 		worldTransformBeam_.rotation_,
@@ -85,13 +78,23 @@ void GameScene::BeamUpdate() {
 }
 
 void GameScene::BeamMove() {
-		if (isBeamFlag == false) {
+		if (BeamFlag == false) {
 			worldTransformBeam_.translation_.z += 0.1f;
 			worldTransformBeam_.rotation_.x += 0.1f;
 			if (worldTransformBeam_.translation_.z > 40) {
-				isBeamFlag = true;
+				BeamFlag = false;
 			}
 		}
+}
+
+void GameScene::BeamBorn() {
+	    BeamMove();
+	if (input_->TriggerKey(DIK_SPACE)) {
+		    worldTransformBeam_.translation_.z = worldTransformPlayer_.translation_.z;
+		    worldTransformBeam_.translation_.x = worldTransformPlayer_.translation_.x;
+		    BeamFlag = false;
+	    }
+
 }
 
 void GameScene::PlayerUpdate() {
