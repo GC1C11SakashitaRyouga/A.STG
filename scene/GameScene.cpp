@@ -11,6 +11,7 @@ GameScene::~GameScene() {
 	delete modelStage_;//ステージ
 	delete modelPlayer_;//プレイヤー
 	delete modelBeam_;//ビーム
+	delete modelEnemy_;//エネミー
 }
 //初期化
 void GameScene::Initialize() { 
@@ -46,7 +47,11 @@ void GameScene::Initialize() {
 	modelBeam_ = Model::Create();
 	worldTransformBeam_.scale_ = {0.5f, 0.5f, 0.5f};
 	worldTransformBeam_.Initialize();
-
+	//エネミー
+	textureHandleEnemy_ = TextureManager::Load("Enemy.png");
+	modelEnemy_ = Model::Create();
+	worldTransformEnemy_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTransformEnemy_.Initialize();
 	
 	
 	//変更行列を更新
@@ -78,11 +83,11 @@ void GameScene::BeamUpdate() {
 }
 
 void GameScene::BeamMove() {
-		if (BeamFlag == false) {
+		if (beamFlag_ == 1) {
 			worldTransformBeam_.translation_.z += 0.1f;
 			worldTransformBeam_.rotation_.x += 0.1f;
 			if (worldTransformBeam_.translation_.z > 40) {
-				BeamFlag = false;
+				beamFlag_ = 0;
 			}
 		}
 }
@@ -92,18 +97,39 @@ void GameScene::BeamBorn() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 		    worldTransformBeam_.translation_.z = worldTransformPlayer_.translation_.z;
 		    worldTransformBeam_.translation_.x = worldTransformPlayer_.translation_.x;
-		    BeamFlag = false;
+		    beamFlag_ = 1;
 	    }
 
 }
 
+void GameScene::EnemyUpdate() {
+	    // 変換行列を更新
+	    worldTransformEnemy_.matWorld_ = MakeAffineMatrix(
+	        worldTransformEnemy_.scale_, worldTransformEnemy_.rotation_,
+	        worldTransformEnemy_.translation_);
+	    // 変換行列を定数バッファに転送
+	    worldTransformEnemy_.TransferMatrix();
+}
+
+void GameScene::EnemyMove() {
+	    worldTransformEnemy_.translation_.z -= 0.1f;
+	    worldTransformEnemy_.rotation_.x -= 0.1f;
+}
+
 void GameScene::PlayerUpdate() {
+
 	if (input_->PushKey(DIK_RIGHT)) {
 		worldTransformPlayer_.translation_.x += 0.1f;
 	}
 	if (input_->PushKey(DIK_LEFT)) {
 		worldTransformPlayer_.translation_.x -= 0.1f;
 	}   
+	if (worldTransformPlayer_.translation_.x < -4) {
+		worldTransformPlayer_.translation_.x = -4;
+	}
+	if (worldTransformPlayer_.translation_.x > 4) {
+		worldTransformPlayer_.translation_.x = 4;
+	}
 	// 変換行列を更新
 	    worldTransformPlayer_.matWorld_ = MakeAffineMatrix(
 	    worldTransformPlayer_.scale_,

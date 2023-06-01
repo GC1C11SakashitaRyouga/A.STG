@@ -43,7 +43,10 @@ public: // メンバ関数
 	void BeamMove();
 	//ビーム発生
 	void BeamBorn();
-
+	//enemy
+	void EnemyUpdate();
+	// エネミーの移動
+	void EnemyMove();
 	
 
 	/// <summary>
@@ -77,5 +80,10 @@ private: // メンバ変数
 	uint32_t textureHandleBeam_ = 0;
 	Model* modelBeam_ = nullptr;
 	WorldTransform worldTransformBeam_;
-	bool BeamFlag=true;
+	int beamFlag_=0;
+	//エネミー
+	uint32_t textureHandleEnemy_ = 0;
+	Model* modelEnemy_ = nullptr;
+	WorldTransform worldTransformEnemy_;
+	
 };
